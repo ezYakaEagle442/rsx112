@@ -180,16 +180,38 @@ sudo wireshark &
 
 
 ```bash
-xxx
+openssl req -config ~/ca/openssl.cnf -new -nodes -newkey rsa:2048 -sha256 -out ~/ee/mail-req.pem -keyout ~/ee/mail-key.pem
+
+more ~/ee/mail-key.pem
+more ~/ee/mail-req.pem
+openssl req -in ~/ee/mail-req.pem -noout -text
+
+more ~/ca/serial
+more ~/ca/index.txt
+more ~/ee/mail-cert.pem
+
+openssl pkcs12 -export -in ~/ee/mail-cert.pem -inkey ~/ee/mail-key.pem -certfile ~/ca/cacert.pem -name "RSX112 compte Mail de test" -out ~/ee/mail.p12
+
+```
+
+![Personal Mail Certificate](Pinpin_MailCert_p12.png)
+
+# Install TinyCA
+
+```bash
+sudo apt install tinyca
 ```
 
 ```console
-xxx
-```
+Lecture des listes de paquets... Fait
+Construction de l'arbre des dépendances... Fait
+Lecture des informations d'état... Fait      
+Aucune version du paquet tinyca n'est disponible, mais il existe dans la base
+de données. Cela signifie en général que le paquet est manquant, qu'il est devenu obsolète
+ou qu'il n'est disponible que sur une autre source
 
+E: Le paquet « tinyca » n'a pas de version susceptible d'être installée
 
-```bash
-xxx
 ```
 
 ```console
