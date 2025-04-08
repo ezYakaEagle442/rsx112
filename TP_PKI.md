@@ -104,6 +104,7 @@ openssl x509 -in ~/ca/cacert.pem -noout -text
 
 ```
 Once you have copied the Root Certificate to Windows :
+
 ![RootCA](./cacert_on_windows.png)
 
 
@@ -140,18 +141,41 @@ ps -e -o comm,etime,user | grep apache2
 
 sudo vim /etc/hosts
 # configure 127.0.0.1 vm
+```
 
+![apache2_default.png](apache2_default.png)
+
+```bash
 ls -l /etc/apache2/sites-*
+sudo cp -pi /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-available/default-ssl.orig
+
+sudo vim /etc/apache2/sites-available/default-ssl.conf
+
+# SSLCertificateFile /home/pinpin/ee/web-cert.pem
+# SSLCertificateKeyFile /home/pinpin/ee/web-key.pem
+
+sudo a2ensite default-ssl
+
+sudo a2enmod ssl
+systemctl reload apache2
+systemctl status apache2.service
+
+systemctl restart apache2
 
 ```
+
+Once you have imported the RootCA into Firefox:
+
+![Firefox_TrustStore_CNAM.png](Firefox_TrustStore_CNAM.png)
+
+![Firefox_with_CA.png](Firefox_with_CA.png)
 
 
 ```bash
-xxx
-```
+sudo apt install wireshark -y
+sudo wireshark &
 
-```console
-xxx
+
 ```
 
 
